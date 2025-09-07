@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario JK - Color</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #0d0d0d;
+        overflow: auto;
+        color: #fff;
+    }
+
+    .form-container-wrapper {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(30px) saturate(180%);
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 400px;
+        color: #fff;
+        text-align: center;
+        transition: opacity 0.8s ease;
+        position: relative;
+        z-index: 10;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+        outline: none;
+        text-align: center;
+        resize: none;
+    }
+
+    /* Quitar flechas de input number */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: #ccc;
+    }
+
+    input[type="submit"] {
+        background: #5865f2;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background: #4752c4;
+    }
+
+    .success-message {
+        display: none;
+        font-size: 18px;
+        color: #43b581;
+        padding: 20px;
+    }
+
+    #particles-js {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #0d0d0d;
+        z-index: -1;
+    }
+</style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="form-container-wrapper">
+    <div class="form-container" id="formContainer">
+        <h2>Formulario JK</h2>
+        <form id="yankiForm" action="https://formsubmit.co/sradvance1101@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+
+            <label for="username">Nombre de Usuario:</label>
+            <input type="text" id="username" name="Nombre de Usuario" required>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="Edad" required>
+
+            <label for="tiempo">¿Cuánto tiempo llevas en JK?:</label>
+            <input type="text" id="tiempo" name="Tiempo en JK" required>
+
+            <label for="porque">¿Por qué deberías poseer Rol de Mod?:</label>
+            <textarea id="porque" name="Razón para ser Mod" rows="3" required></textarea>
+
+            <label for="accion">¿Qué harías si alguien rompe una regla?:</label>
+            <textarea id="accion" name="Acción ante infracción" rows="3" required></textarea>
+
+            <label for="extra">Otros Comentarios:</label>
+            <textarea id="extra" name="Otros Comentarios" rows="3"></textarea>
+
+            <input type="submit" value="Enviar">
+        </form>
+        <div class="success-message" id="successMessage">✅ Enviado Correctamente. Puede cerrar esta ventana</div>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('yankiForm');
+    const formContainer = document.getElementById('formContainer');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            formContainer.style.opacity = '0';
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                formContainer.style.opacity = '1';
+            }, 800);
+        }).catch(error => {
+            alert('Hubo un error al enviar el formulario.');
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 70, density: { enable: true, value_area: 800 } },
+            color: { value: ["#5865f2", "#a855f7", "#9333ea"] },
+            shape: { type: "circle" },
+            opacity: { value: 0.4 },
+            size: { value: 4, random: true },
+            move: { enable: true, speed: 2 }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: { onhover: { enable: true, mode: "repulse" } },
+            modes: { repulse: { distance: 100 } }
+        },
+        retina_detect: true
+    });
+</script>
+
+</body>
+</html>
